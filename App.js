@@ -5,9 +5,12 @@ import ImageOption from "./src/components/ImageOption";
 
 import styles from "./App.styles";
 import question from "./assets/data/oneQuestionWithOption";
+import Button from "./src/components/Button";
 
 const App = () => {
     const [selected, setSelected] = useState(null);
+
+    const onButtonPress = () => {};
 
     return (
         <View style={styles.root}>
@@ -24,6 +27,8 @@ const App = () => {
                     />
                 ))}
             </View>
+
+            <Button text="Check" onPress={onButtonPress} disabled={!selected} />
         </View>
     );
 };
