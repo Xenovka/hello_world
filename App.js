@@ -5,8 +5,6 @@ import ImageMultipleChoiceQuestion from "./src/components/ImageMultipleChoiceQue
 import OpenEndedQuestion from "./src/components/OpenEndedQuestion";
 
 import styles from "./App.styles";
-// import questions from "./assets/data/imageMulatipleChoiceQuestions";
-// import questions from "./assets/data/openEndedQuestions";
 import questions from "./assets/data/allQuestions";
 
 const App = () => {
