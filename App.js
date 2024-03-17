@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View } from "react-native";
+import { ActivityIndicator, Alert, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import ImageMultipleChoiceQuestion from "./src/components/ImageMultipleChoiceQuestion";
 import OpenEndedQuestion from "./src/components/OpenEndedQuestion";
@@ -12,6 +13,7 @@ const App = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(questions[currentQuestionIndex]);
     const [lives, setLives] = useState(5);
+    const [hasLoaded, setHasLoaded] = useState(false);
 
     useEffect(() => {
         if (currentQuestionIndex >= questions.length) {
@@ -21,6 +23,16 @@ const App = () => {
             setCurrentQuestion(questions[currentQuestionIndex]);
         }
     }, [currentQuestionIndex]);
+
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    useEffect(() => {
+        if (hasLoaded) {
+            saveData();
+        }
+    }, [lives, currentQuestionIndex, hasLoaded]);
 
     const restart = () => {
         setCurrentQuestionIndex(0);
@@ -46,6 +58,29 @@ const App = () => {
             setLives(lives - 1);
         }
     };
+
+    const saveData = async () => {
+        await AsyncStorage.setItem("lives", lives.toString());
+        await AsyncStorage.setItem("currentQuestionIndex", currentQuestionIndex.toString());
+    };
+
+    const loadData = async () => {
+        const loadedLives = await AsyncStorage.getItem("lives");
+        if (loadedLives) {
+            setLives(parseInt(loadedLives));
+        }
+
+        const loadedCurrentQuestionIndex = await AsyncStorage.getItem("currentQuestionIndex");
+        if (loadedCurrentQuestionIndex) {
+            setCurrentQuestionIndex(parseInt(loadedCurrentQuestionIndex));
+        }
+
+        setHasLoaded(true);
+    };
+
+    if (!hasLoaded) {
+        return <ActivityIndicator />;
+    }
 
     return (
         <View style={styles.root}>
