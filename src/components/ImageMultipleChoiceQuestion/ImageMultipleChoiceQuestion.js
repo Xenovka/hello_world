@@ -47,8 +47,8 @@ ImageMultipleChoiceQuestion.propTypes = {
         question: PropTypes.string,
         options: PropTypes.arrayOf(
             PropTypes.shape({
-                id: PropTypes.number,
-                image: PropTypes.any,
+                id: PropTypes.string,
+                image: PropTypes.string,
                 text: PropTypes.string,
                 correct: PropTypes.bool
             })
