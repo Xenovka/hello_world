@@ -3,6 +3,7 @@ import { Alert, View } from "react-native";
 
 import ImageMultipleChoiceQuestion from "./src/components/ImageMultipleChoiceQuestion";
 import OpenEndedQuestion from "./src/components/OpenEndedQuestion";
+import Header from "./src/components/Header";
 
 import styles from "./App.styles";
 import questions from "./assets/data/allQuestions";
@@ -30,6 +31,8 @@ const App = () => {
 
     return (
         <View style={styles.root}>
+            <Header progress={currentQuestionIndex / questions.length} />
+
             {currentQuestion.type === "IMAGE_MULTIPLE_CHOICE" ? (
                 <ImageMultipleChoiceQuestion question={currentQuestion} onCorrect={onCorrect} onWrong={onWrong} />
             ) : null}
