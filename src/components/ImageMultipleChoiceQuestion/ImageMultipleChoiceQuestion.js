@@ -42,6 +42,8 @@ const ImageMultipleChoiceQuestion = ({ question, onCorrect, onWrong }) => {
 
 ImageMultipleChoiceQuestion.propTypes = {
     question: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
         question: PropTypes.string,
         options: PropTypes.arrayOf(
             PropTypes.shape({
